@@ -7,6 +7,7 @@ import userRoutes from "./routes/users.js";
 import requestRoutes from "./routes/requests.js";
 import fundingRoutes from "./routes/funding.js";
 import statsRoutes from "./routes/stats.js";
+import { seedDB } from "./seed.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -41,7 +42,8 @@ app.use((err, req, res, next) => {
 });
 
 connectDB()
-  .then(() => {
+  .then(async () => {
+    await seedDB();
     app.listen(port, () =>
       console.log(`BloodBridge API running on port ${port}`)
     );
