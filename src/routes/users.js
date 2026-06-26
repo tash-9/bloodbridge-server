@@ -66,7 +66,14 @@ router.patch("/:id/status", verifyToken, requireRole("admin"), async (req, res) 
     if (!["active", "blocked"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
+    if (req.user._id.toString() === req.params.id) {
+      return res.status(400).json({ message: "You cannot block your own account" });
+    }
     const db = await connectDB();
+    const target = await db.collection("users").findOne({ _id: oid(req.params.id) });
+    if (target?.role === "admin") {
+      return res.status(400).json({ message: "Admins cannot block other admins" });
+    }
     await db.collection("users").updateOne({ _id: oid(req.params.id) }, { $set: { status } });
     res.json({ ok: true });
   } catch (err) {
