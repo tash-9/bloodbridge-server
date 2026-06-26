@@ -13,11 +13,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // CORS
-const allowedOrigins = process.env.CLIENT_ORIGIN
-  ? process.env.CLIENT_ORIGIN.split(",").map((o) => o.trim())
-  : true;
-
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "2mb" }));
 
 // Health check
