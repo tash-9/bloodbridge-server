@@ -124,8 +124,7 @@ router.patch("/:id/status", verifyToken, async (req, res) => {
     const assignedDonor = request.donorEmail === req.user.email;
     const manager = ["admin", "volunteer"].includes(req.user.role);
     const claimingRequest =
-      req.body.status === "inprogress" &&
-      req.user.role === "donor" &&
+      req.body.status === "inprogress" && req.user.role === "donor" &&
       request.status === "pending";
     if (!owner && !assignedDonor && !manager && !claimingRequest) {
       return res.status(403).json({ message: "Forbidden" });
@@ -150,7 +149,9 @@ router.delete("/:id", verifyToken, requireRole("admin", "donor"), async (req, re
     const db = await connectDB();
     const request = await db.collection("donationRequests").findOne({ _id: oid(req.params.id) });
     if (!request) return res.status(404).json({ message: "Donation request not found" });
-
+    if (req.body.status === "inprogress" && request.requesterEmail === req.user.email) {
+      return res.status(400).json({ message: "You cannot donate to your own request" });
+    }
     if (req.user.role !== "admin" && request.requesterEmail !== req.user.email) {
       return res.status(403).json({ message: "Forbidden" });
     }
