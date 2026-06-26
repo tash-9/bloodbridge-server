@@ -66,7 +66,9 @@ router.post("/", verifyToken, async (req, res) => {
     }
     const required = ["recipientName", "recipientDistrict", "recipientUpazila", "hospitalName", "address", "bloodGroup", "donationDate", "donationTime", "message"];
     const missing = required.filter((k) => !req.body[k]);
-    if (missing.length) return res.status(400).json({ message: `Missing fields: ${missing.join(", ")}` });
+    if (new Date(req.body.donationDate) < new Date()) {
+      return res.status(400).json({ message: "Donation date cannot be in the past" });
+    }
 
     const db = await connectDB();
     const doc = {
