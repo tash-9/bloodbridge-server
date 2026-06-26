@@ -10,7 +10,7 @@ Built with **Node.js**, **Express**, and **MongoDB**.
 - **Backend API:** [https://bloodbridge-server.onrender.com](https://bloodbridge-server.onrender.com)
 
 ```
-{"name":"BloodBridge API","status":"healthy","version":"1.0.0"}
+{"name":"BloodBridge API","status":"healthy","version":"1.0.0","timestamp":"2025-01-01T00:00:00.000Z", "database":"connected"}
 ```
 
 ---
@@ -60,9 +60,6 @@ src/
 ```
 
 ---
-
-## Getting Started
-
 ### Prerequisites
 
 - Node.js 18+

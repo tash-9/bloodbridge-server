@@ -22,10 +22,18 @@ app.use(
 app.use(express.json({ limit: "2mb" }));
 
 // Health check
-app.get("/", (req, res) =>
-  res.json({ name: "BloodBridge API", status: "healthy", version: "1.0.0" })
-);
-
+app.get("/", async (req, res) => {
+  try {
+    await connectDB();
+    res.json({ 
+      name: "BloodBridge API", status: "healthy", version: "1.0.0", timestamp: new Date().toISOString(), database: "connected"
+    });
+  } catch {
+    res.json({ 
+      name: "BloodBridge API", status: "healthy", version: "1.0.0", timestamp: new Date().toISOString(),database: "disconnected"
+    });
+  }
+});
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
