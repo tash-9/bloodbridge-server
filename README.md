@@ -5,6 +5,15 @@ REST API backend for **BloodBridge** — a blood donation platform connecting do
 Built with **Node.js**, **Express**, and **MongoDB**.
 
 ---
+## 🔗 Live URL
+
+- **Backend API:** [https://bloodbridge-server.onrender.com](https://bloodbridge-server.onrender.com)
+
+```
+{"name":"BloodBridge API","status":"healthy","version":"1.0.0"}
+```
+
+---
 
 ## Features
 
