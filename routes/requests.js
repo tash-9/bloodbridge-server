@@ -27,7 +27,7 @@ router.get("/", verifyToken, async (req, res) => {
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
 
-    if (req.user.role === "donor" || req.query.mine === "true") {
+    if (req.query.mine === "true") {
       filter.requesterEmail = req.user.email;
     }
 
