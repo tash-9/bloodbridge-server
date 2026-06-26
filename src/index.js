@@ -1,12 +1,12 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { connectDB } from "./config/db.js";
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js";
-import requestRoutes from "./routes/requests.js";
-import fundingRoutes from "./routes/funding.js";
-import statsRoutes from "./routes/stats.js";
+import { connectDB } from "../config/db.js";
+import authRoutes from "../routes/auth.js";
+import userRoutes from "../routes/users.js";
+import requestRoutes from "../routes/requests.js";
+import fundingRoutes from "../routes/funding.js";
+import statsRoutes from "../routes/stats.js";
 import { seedDB } from "./seed.js";
 
 const app = express();

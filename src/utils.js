@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ObjectId } from "./config/db.js";
+import { ObjectId } from "../config/db.js";
 
 export const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 export const statuses = ["pending", "inprogress", "done", "canceled"];

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "../config/db.js";
 
 export async function seedDB() {
   const db = await connectDB();
