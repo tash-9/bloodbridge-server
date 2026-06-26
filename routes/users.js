@@ -24,19 +24,19 @@ router.get("/", verifyToken, requireRole("admin"), async (req, res) => {
 
 // GET /api/users/search  (public)
 router.get("/search", async (req, res) => {
-  const { bloodGroup, district, upazila } = req.query;
-  if (!bloodGroup || !district || !upazila) return res.json([]);
   try {
     const db = await connectDB();
-    const donors = await db
-      .collection("users")
-      .find({ bloodGroup, district, upazila, status: "active" })
-      .project({ passwordHash: 0 })
-      .limit(40)
+    const { bloodGroup, district, upazila } = req.query;
+    const filter = { role: "donor", status: "active" };
+    if (bloodGroup) filter.bloodGroup = bloodGroup;
+    if (district)   filter.district = district;
+    if (upazila)    filter.upazila = upazila;
+
+    const donors = await db.collection("users")
+      .find(filter, { projection: { password: 0 } })
       .toArray();
     res.json(donors);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Search failed" });
   }
 });
